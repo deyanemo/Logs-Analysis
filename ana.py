@@ -18,8 +18,6 @@ def create_view():
         raise e
 
 
-
-
 def Most_Viewed():
     try:
         conn = psycopg2.connect("dbname={} user=vagrant".format(db))
@@ -35,6 +33,7 @@ def Most_Viewed():
         print "Unable to connect to database"
         sys.exit(1)
         raise e
+
 
 def Most_authors():
     try:
@@ -60,15 +59,14 @@ def Most_error():
         conn = psycopg2.connect("dbname={} user=vagrant".format(db))
         cur = conn.cursor()
         cur.execute("SELECT  to_char(time, 'Mon DD, YYYY') as date, count(status) \
-            AS errors, status FROM log  WHERE status !='200 OK' GROUP BY date , \
-                 status ORDER BY date ASC;")
+                        AS errors, status FROM log  WHERE status !='200 OK' \
+                        GROUP BY date , status ORDER BY date ASC;")
         rows = cur.fetchall()
         cur.execute("select * from nemo;")
         total = cur.fetchall()
         totals = total[0][0]
-            # print(total[0][0])
+        # print(total[0][0])
         for i in rows:
-        # print(i[0])
             deya = float(i[1] * 100)/long(totals)
             deya = round(deya, 2)
             if deya >= 5:
@@ -83,4 +81,4 @@ if __name__ == "__main__":
     create_view()
     Most_Viewed()
     Most_authors()
-    Most_error()
+Most_error()
