@@ -15,33 +15,47 @@ Requirements
 - and the SQLEXAMPLEFILE (https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
 
 
-
 Installation :
 this will not provide tips to install vagrant and virtualbox
     after starting the Vagrant and Virtualbox
     open cmd as administrator(*) and type :
-    ~> vagrant up
-    ~>ssh 127.0.0.1 2222
+    vagrant up
+    ssh 127.0.0.1 2222
     username : vagrant
     password : vagrant
 
     after signing in :
-    install PostgersSQl:            [ sudo apt-get install postgres ]
-    Run psql and install db:        [ psql -d news -f sqlfile.sql ]
+    - install PostgersSQl:            [ sudo apt-get install postgres ]
+    - Run psql and install db:        [ psql -d news -f newsdata.sql ]
+    - Run Script using :              [python nemo.py]
 
-Now wait till finish
-and you are ready to go :)
 
 Files:
-    - deyanemo.py
+    - database_setup.py *
+    - nemo.py *
     - README.md
-
 
 
 NOTE :
 
 ADD THE VIEW INSIDE THE CODE AS FUNCTION BUT HERE ITS
 
-create or replace view nemo as select status count(path) as num from log group by status;
+For creating the author view to answer question 2
+
+create or replace view ok as select to_char(time,'Mon DD, YYYY') \
+                as date , count(status) from log where status='200 OK'\
+                group by date order by date ASC;
+
+for creatin error view answering question 3
+
+create or replace view ok as select to_char(time,'Mon DD, YYYY') \
+                as date , count(status) from log where status!='200 OK'\
+                group by date order by date ASC;
+
+create or replace view ok as select to_char(time,'Mon DD, YYYY') \
+                as date , count(status) from log where status='200 OK'\
+                group by date order by date ASC;
+
+
 
 **** Note ADDED THE VIEW INTO THE CODE ****
