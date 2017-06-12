@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-from test import MyDB
+from database_setup import MyDB
 
 db = MyDB()
 
