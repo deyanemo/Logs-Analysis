@@ -79,14 +79,17 @@ def CreateView():
                 as num from articles, log where articles.slug= \
                 substring(path from 10 for 100) group by author order\
                 by num DESC")
+        db._db_cur.commit()
     # The error Count View
         db._db_cur.execute("create or replace view ok as select to_char(time,'Mon DD, YYYY') \
                 as date , count(status) from log where status!='200 OK'\
                 group by date order by date ASC;")
+        db._db_cur.commit()
     # The Ok View
         db._db_cur.execute("create or replace view ok as select to_char(time,'Mon DD, YYYY') \
                 as date , count(status) from log where status='200 OK'\
                 group by date order by date ASC;")
+        db._db_cur.commit()
     except psycopg2.Error as e:
         raise e
     print ("Views Created!")
