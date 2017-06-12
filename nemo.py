@@ -65,34 +65,35 @@ def Error_date():
     print("\n-------------~~~~~~~~~~~~~~~~~~~~~~~~~-------------\n")
 
 
-def CreateView():
-    """
-        Please Note Very important:
-            This function exepect Two views to be created before the
-            execution to this code Or Just uncomment The CreateView
-            Function
-        This function create the view for you !
-    """
-    # The mauthors View
-    try:
-        db._db_cur.execute("create or replace view mautors as select author,count(log.path) \
-                as num from articles, log where articles.slug= \
-                substring(path from 10 for 100) group by author order\
-                by num DESC")
-    # The error Count View
-        db._db_cur.execute("create or replace view ok as select to_char(time,'Mon DD, YYYY') \
-                as date , count(status) from log where status!='200 OK'\
-                group by date order by date ASC;")
-    # The Ok View
-        db._db_cur.execute("create or replace view ok as select to_char(time,'Mon DD, YYYY') \
-                as date , count(status) from log where status='200 OK'\
-                group by date order by date ASC;")
-    except psycopg2.Error as e:
-        raise e
-    print ("Views Created!")
+# def CreateView():
+#     """
+#         Please Note Very important:
+#             This function exepect Two views to be created before the
+#             execution to this code Or Just uncomment The CreateView
+#             Function
+#         This function create the view for you !
+#     """
+#     # The mauthors View
+#     try:
+#         db._db_cur.execute("create or replace view mautors as select author,count(log.path) \
+#                 as num from articles, log where articles.slug= \
+#                 substring(path from 10 for 100) group by author order\
+#                 by num DESC")
+#     # The error Count View
+#         db._db_cur.execute("create or replace view ok as select to_char(time,'Mon DD, YYYY') \
+#                 as date , count(status) from log where status!='200 OK'\
+#                 group by date order by date ASC;")
+#     # The Ok View
+#         db._db_cur.execute("create or replace view ok as select to_char(time,'Mon DD, YYYY') \
+#                 as date , count(status) from log where status='200 OK'\
+#                 group by date order by date ASC;")
+#     except psycopg2.Error as e:
+#         raise e
+#     print ("Views Created!")
+
 if __name__ == "__main__":
     # Creating the view
-    CreateView()
+#     CreateView()
     # Most popular articles
     Most_popular()
     # Most popular authors
