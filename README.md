@@ -40,13 +40,13 @@ NOTE :
 
 ADD THE VIEW INSIDE THE CODE AS FUNCTION BUT HERE ITS
 
-For creating the author view to answer question 2
+For creating the author view to answer question 2:
 
 create or replace view ok as select to_char(time,'Mon DD, YYYY') \
                 as date , count(status) from log where status='200 OK'\
                 group by date order by date ASC;
 
-for creatin error view answering question 3
+for creatin error view answering question 3:
 
 create or replace view ok as select to_char(time,'Mon DD, YYYY') \
                 as date , count(status) from log where status!='200 OK'\
