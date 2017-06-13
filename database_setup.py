@@ -42,7 +42,6 @@ class MyDB():
             datsabase"""
         try:
             self._db_connection.close()
-            print("Database Closed Savely")
         except psycopg2.Error as e:
             raise e
 
@@ -54,4 +53,6 @@ class MyDB():
             result = self._db_cur.fetchall()
             return result
         except psycopg2.Error as e:
+            print("Please Check if you added the views")
+            print("Check the readme file for more info")
             raise e
