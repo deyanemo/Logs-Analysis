@@ -27,8 +27,26 @@ this will not provide tips to install vagrant and virtualbox
     after signing in :
     - install PostgersSQl:            [ sudo apt-get install postgres ]
     - Run psql and install db:        [ psql -d news -f newsdata.sql ]
-    - Run Script using :              [python nemo.py]
+    Please Note before running the script please create the views in order to the program to run
 
+    For creating the author view to answer question 2:
+
+            create or replace view mauthors as select author,count(log.path)
+                as num from articles, log where articles.slug=
+                substring(path from 10 for 100) group by author order
+                by num DESC
+
+    For creatin error view answering question 3:
+
+            create or replace view err as select to_char(time,'Mon DD, YYYY')
+                as date , count(status) from log where status!='200 OK'
+                group by date order by date ASC;
+
+            create or replace view ok as select to_char(time,'Mon DD, YYYY')
+                as date , count(status) from log
+                group by date order by date ASC;
+
+    - Run Script using :              [python nemo.py]
 
 Files:
     - database_setup.py *
@@ -37,25 +55,5 @@ Files:
 
 
 NOTE :
+Thank you
 
-ADD THE VIEW INSIDE THE CODE AS FUNCTION BUT HERE ITS
-
-For creating the author view to answer question 2:
-
-create or replace view ok as select to_char(time,'Mon DD, YYYY') \
-                as date , count(status) from log where status='200 OK'\
-                group by date order by date ASC;
-
-for creatin error view answering question 3:
-
-create or replace view err as select to_char(time,'Mon DD, YYYY') \
-                as date , count(status) from log where status!='200 OK'\
-                group by date order by date ASC;
-
-create or replace view ok as select to_char(time,'Mon DD, YYYY') \
-                as date , count(status) from log where status='200 OK'\
-                group by date order by date ASC;
-
-
-
-**** Note ADDED THE VIEW INTO THE CODE ****
